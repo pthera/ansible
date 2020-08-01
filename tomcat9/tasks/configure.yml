@@ -1,0 +1,14 @@
+---
+- name: configuring tomcat9
+  copy:
+   src: "{{file1}}"
+   dest: "{{destination1}}"
+- name: change port of tomcat from 8080 to 9090
+  replace:
+   regexp: "{{port1}}"
+   replace: "{{port2}}"
+   path: "{{path1}}"
+  notify:
+   - check_url_response
+
+...

@@ -1,0 +1,19 @@
+---
+# vars file for tomcat9
+pkg1: tomcat9
+pkg2: tomcat9-admin
+state1: present
+state2: present
+state3: restarted
+cache1: yes
+cache2: no
+file1: tomcat-users.xml
+destination1: /etc/tomcat9
+server1: http://172.31.30.57:9090
+server2: http://172.31.42.208:9090
+status1: 200
+status2: -1
+path1: /etc/tomcat9/server.xml
+port1: 8080
+port2: 9090
+...
