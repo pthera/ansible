@@ -1,0 +1,8 @@
+---
+- name: USing include module
+  hosts: all
+  tasks:
+   - name: calling child playbook
+     include: child-playbook.yml
+
+...

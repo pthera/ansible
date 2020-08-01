@@ -1,0 +1,34 @@
+---
+- name: setup Jenkins on Node1
+  hosts: 172.31.18.113
+  tasks:
+   - name: install required softwares
+     apt:
+      name: "{{item.a}}"
+      state: present
+      update_cache: "{{item.b}}"
+     with_items:
+      - {a: git,b: yes}
+      - {a: openjdk-8-jdk,b: no}
+      - {a: maven,b: no}
+   - name: Download jenkins.war file
+     get_url:
+      url: http://mirrors.jenkins.io/war-stable/2.235.2/jenkins.war
+      dest: /home/ubuntu
+- name: Setup tomcat9 on Node2
+  hosts: 172.31.30.57
+  tasks:
+    - name: Install tomcat9 and tomcat9-admin
+      apt:
+       name: "{{item.a}}"
+       state: present
+       update_cache: "{{item.b}}"
+      with_items:
+       - {a: tomcat9,b: yes}
+       - {a: tomcat9-admin,b: no}
+    - name: Copy tomcat-users.xml file
+      copy:
+       src: tomcat-users.xml
+       dest: /etc/tomcat9
+
+...

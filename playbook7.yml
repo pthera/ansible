@@ -1,0 +1,14 @@
+---
+- name: Using playscope variable for s/w installations
+  hosts: appserver
+  vars:
+   - a: tomcat9
+   - b: present
+   - c: no
+  tasks:
+   - name: Install s/w applications
+     apt:
+      name: "{{a}}"
+      state: "{{b}}"
+      update_cache: "{{c}}"
+...

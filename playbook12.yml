@@ -1,0 +1,20 @@
+---
+- name: Creating multiple users
+  hosts: all
+  tasks:
+   - name: creating multiple users
+     user:
+      name: "{{item.a}}"
+      password: "{{item.b}}"
+      home: "{{item.c}}"
+     with_items:
+      - {a: Ramu,b: intelliqit,c: /home/Ramu}
+      - {a: Rama,b: intelliqit,c: /home/ubuntu/Rama}
+   - name: Creating files and dirs
+     copy:
+      src: "{{item.a}}"
+      dest: "{{item.b}}"
+     with_items:
+      - {a: /etc/passwd,b: /home/Ramu}
+      - {a: /etc/group,b: /home/ubuntu/Rama}
+...

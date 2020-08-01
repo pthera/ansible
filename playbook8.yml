@@ -1,0 +1,11 @@
+---
+- name: 
+  hosts: webserver
+  tasks:
+   - name:
+     user:
+      name: "{{a}}"
+      password: "{{b}}"
+      uid: "{{c}}"
+      home: "{{d}}"
+...

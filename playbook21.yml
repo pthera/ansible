@@ -1,0 +1,10 @@
+---
+- name: Creating users
+  hosts: all
+  tasks:
+   - name: User Creation
+     user:
+      name: intelliqi
+      password: intelliqit
+...
+

@@ -1,0 +1,20 @@
+---
+- name: Tags in Ansible
+  hosts: all
+  tasks:
+   - name: Install tree
+     apt:
+      name: tree
+      state: present
+     tags: tree_installation
+   - name: user creation
+     user:
+      name: Ramesh
+      password: intelliqit
+     tags: user_creation
+   - name: copy /etc/passwd file
+     copy:
+      src: /etc/passwd
+      dest: /home/ubuntu
+
+...

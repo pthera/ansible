@@ -1,0 +1,12 @@
+---
+- name: creating users on managed servers
+  hosts: all
+  tasks:
+   - name: user creation
+     user:
+      name: kumar
+      password: kumar
+      home: /home/kumar
+      uid: 9990
+      shell: /bin/bash
+...

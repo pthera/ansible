@@ -1,0 +1,12 @@
+---
+- name: Configuring Apache2
+  hosts: all
+  tasks:
+   - name: configuring Apache2
+     include: "{{item}}"
+     with_items:
+      - install-apache.yml
+      - index-html.yml
+      - restart-apache.yml
+      - url-check.yml
+...

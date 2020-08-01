@@ -1,0 +1,49 @@
+---
+- name: Install required software for CI-CD
+  hosts: all
+  tasks:
+   - name: Install softwares
+     apt:
+      name: "{{item.a}}"
+      state: present
+      update_cache: "{{item.b}}"
+     with_items:
+      - {a: openjdk-8-jdk,b: yes}
+      - {a: git,b: no}
+      - {a: maven,b: no}
+      - {a: tomcat9,b: no}
+      - {a: tomcat9-admin,b: no}
+- name: Download the code and Build the code
+  hosts: devserver
+  tasks:
+   - name: Download the code
+     git:
+      repo: https://github.com/intelliqittrainings/maven.git
+      dest: /home/ubuntu/dev-git
+   - name: Build the code
+     shell: cd /home/ubuntu/dev-git;mvn package
+   - name: Fetch the build from dev to controller
+     fetch:
+      src: /home/ubuntu/dev-git/webapp/target/webapp.war
+      dest: /tmp
+- name: Deploy on QA
+  hosts: qaserver
+  tasks:
+   - name: Copy the package from controller to QA
+     copy:
+      src: /tmp/172.31.18.113/home/ubuntu/dev-git/webapp/target/webapp.war
+      dest: /var/lib/tomcat9/webapps/qaapp.war
+   - name: Run Selenium Testing
+     git:
+      repo: https://github.com/intelliqittrainings/FunctionalTesting.git
+      dest: /home/ubuntu/test-git
+   - name: Testing
+     shell: java -jar /home/ubuntu/test-git/testing.jar
+- name: Copy artifact in to prod server
+  hosts: prodserver
+  tasks:
+   - name: COpy from controller to prod server
+     copy:
+      src: /tmp/172.31.18.113/home/ubuntu/dev-git/webapp/target/webapp.war
+      dest: /var/lib/tomcat9/webapps/prodapp.war
+...

@@ -1,0 +1,13 @@
+---
+- name: Configuring tomcat on all managed nodes
+  hosts: servers
+  tasks:
+   - name: Configuring tomcat
+     include: "{{item}}"
+     with_items:
+      - install-tomcat.yml
+      - copy-tomact-user-xml.yml
+      - change-port.yml
+      - restart-tomcat.yml
+      - url-response-check.yml
+...

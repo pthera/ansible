@@ -1,0 +1,6 @@
+---
+- name: COpy tomact-users.xml file to all managed servers
+  copy:
+   src: "{{d}}"
+   dest: "{{e}}"
+...
